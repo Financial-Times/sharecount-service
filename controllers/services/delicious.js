@@ -1,3 +1,9 @@
+/*
+ * Delicious connector
+ *
+ * Fetches and returns interaction counts from Delicious
+ */
+
 var req = require('request');
 var deferred = require('deferred');
 
