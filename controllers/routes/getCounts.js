@@ -1,3 +1,9 @@
+/*
+ * getCounts controller
+ *
+ * URL controller for /getCounts, fetches interaction counts from multiple services and aggregates the results
+ */
+
 var deferred = require('deferred');
 var _ = require('lodash');
 
