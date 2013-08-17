@@ -1,3 +1,9 @@
+/*
+ * Facebook connector
+ *
+ * Fetches and returns interaction counts from Facebook
+ */
+
 var req = require('request');
 var deferred = require('deferred');
 

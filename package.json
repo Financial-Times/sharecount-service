@@ -7,6 +7,11 @@
       "async": "*",
       "deferred": "*",
       "request": "*",
-      "lodash": "*"
+      "lodash": "*",
+      "forever": "*"
+   },
+   "scripts": {
+      "start": "forever start server.js",
+      "stop": "forever stop server.js"
    }
 }
