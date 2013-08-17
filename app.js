@@ -1,3 +1,9 @@
+/*
+ * Share (Origami service)
+ *
+ * Provides share counts and buttons for sharing URLs
+ */
+
 var express = require('express');
 
 var app = express()
