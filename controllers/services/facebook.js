@@ -23,3 +23,7 @@ exports.fetch = function(urls, metrics) {
 	});
 	return def.promise;
 }
+
+exports.getMetrics = function() {
+	return ['endorsements', 'shares', 'comments', 'clicks'];
+}

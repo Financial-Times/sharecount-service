@@ -8,7 +8,8 @@
       "deferred": "*",
       "request": "*",
       "lodash": "*",
-      "forever": "*"
+      "forever": "*",
+      "memcached": "*"
    },
    "scripts": {
       "start": "forever start --minUptime 1000 --spinSleepTime 1000 server.js",
