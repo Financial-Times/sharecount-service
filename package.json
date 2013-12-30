@@ -4,7 +4,6 @@
    "dependencies": {
       "express": "3.x",
       "mustache": "*",
-      "async": "*",
       "deferred": "*",
       "request": "*",
       "lodash": "*",
@@ -12,7 +11,7 @@
       "memcached": "*"
    },
    "scripts": {
-      "start": "forever start --minUptime 1000 --spinSleepTime 1000 server.js",
-      "stop": "forever stop server.js"
+      "start": "forever start --minUptime 1000 --spinSleepTime 1000 --no-colors server.js",
+      "stop": "forever stop --no-colors server.js"
    }
 }

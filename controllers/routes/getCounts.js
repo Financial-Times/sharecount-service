@@ -46,7 +46,7 @@ module.exports = function(req, res) {
 	})
 
 	// Get as many of the results from memcache as possible
-	memcached = new Memcached('127.0.0.1:11211');
+	memcached = new Memcached('127.0.0.1:11211', {timeout:50});
 	memcached.getMulti(keylist, function(err, cacheres) {
 		var cachestats = {cached:0,fresh:0};
 		keylist.forEach(function(i) {
