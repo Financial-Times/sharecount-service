@@ -1,0 +1,7 @@
+{
+	"memcached": {
+		"servers": "127.0.0.1:11211",
+		"options": {"timeout":100}
+	},
+	"port": 3001
+}

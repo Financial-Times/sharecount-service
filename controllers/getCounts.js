@@ -8,7 +8,7 @@ var deferred = require('deferred');
 var _ = require('lodash');
 var Memcached = require('memcached');
 
-var mcprefix = 'ft-tweet-service-';
+var mcprefix = 'ft-sharecount-service-';
 var mcttl = 3600;
 
 module.exports = function(req, res) {
@@ -29,7 +29,7 @@ module.exports = function(req, res) {
 
 	// Open handles to service backends
 	services.forEach(function(servicename) {
-		servicebackends[servicename] = require('../services/'+servicename+'.js');
+		servicebackends[servicename] = require('../modules/services/'+servicename+'.js');
 	})
 
 	// Create a single flat list of items needed so they can be searched for in cache.  Only list combos that make sense (eg there is no 'endorse' action supported by twitter)

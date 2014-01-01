@@ -1,17 +1,27 @@
 {
-   "name": "ft-share-service",
+   "name": "sharecount-service",
    "version": "0.0.1",
+   "repository": "https://github.com/triblondon/sharecount-service.git",
    "dependencies": {
       "express": "3.x",
-      "mustache": "*",
+      "mustache": "0.8",
+      "twit": "*",
+      "moment": "*",
+      "forever": "*",
+      "htmltidy": "*",
       "deferred": "*",
       "request": "*",
+      "memcached": "*",
       "lodash": "*",
-      "forever": "*",
-      "memcached": "*"
+      "grunt": "~0.4.1",
+      "grunt-contrib-sass": "*",
+      "grunt-contrib-watch": "*",
+      "grunt-browserify": "*",
+      "debowerify": "*"
    },
    "scripts": {
-      "start": "forever start --minUptime 1000 --spinSleepTime 1000 --no-colors server.js",
-      "stop": "forever stop --no-colors server.js"
+      "prepare": "git pull; mkdir logs; chmod -R 777 logs; mkdir public; chmod -R 777 public; npm install; bower install; grunt;",
+      "start": "forever start --minUptime 1000 --spinSleepTime 1000 --no-colors app.js",
+      "stop": "forever stop --no-colors app.js"
    }
 }

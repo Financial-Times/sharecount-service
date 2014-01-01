@@ -7,94 +7,79 @@
     <title>FT Share service</title>
     <meta name="viewport" content="width=device-width">
 
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//financial-times.github.io/ft-origami/css/main.css">
+    <link rel="stylesheet" href="/bundle.css" />
+    <script src='/bundle.js'></script>
+  </head>
+  <body>
+  <body class='o-techdocs'>
 
-    </style>
+    <div class="o-grid-page">
+      <div class="o-techdocs-page-header">
+        <h1>Share count service</h1>
+        <p class='o-techdocs-page-header__lead'>Get interaction counts from major social networks</p>
+      </div>
+
+      <div class='o-techdocs-content'>
+        <p>Integrating the 'button' code from all the social networks can add significant weight to your page, slow down rendering, limit your design options and cause the page to be less responsive.  Most importantly, in environments where those social networks are blocked, the buttons at the very least will be missing and at worst will break the whole page.</p>
+        <p>This service provides fast lookup and an aggregation cache layer in front of all the major social networks.</p>
+
+        <h2>API reference</h2>
+        <h3>GET /v1/getCounts</h3>
+        <p>Get share counts for a specified set of URLs, metrics and services</p>
+        <table class='o-techdocs-table'>
+          <tr>
+            <th>Param</th><th>Where</th><th>Description</th>
+          </tr><tr>
+            <td><code>urls*</code></td>
+            <td>Querystring</td>
+            <td>List of comma-separated, URL-encoded URLs for which interaction counts should be fetched.</td>
+          </tr><tr>
+            <td><code>services*</code></td>
+            <td>Querystring</td>
+            <td>Comma-separated of services on which to query for the URLs.  Supported services are 'twitter', 'facebook', 'gplus', 'stumbleupon', 'reddit', 'delicious', 'linkedin', 'pinterest', 'inferno'</td>
+          </tr><tr>
+            <td><code>metrics*</code></td>
+            <td>Querystring</td>
+            <td>Comma-separated list of metrics to fetch from each service.  Supported metrics are 'shares', 'endorsements', 'comments', 'clicks'.  Note that not all services support all metrics - for example, twitter is only capable of giving a number for 'shares', and in the case of inferno, only 'comments', while facebook supports all the metrics.</td>
+          </tr><tr>
+            <td><code>groupby</code></td>
+            <td>Querystring</td>
+            <td>Comma separated list of fields to split out in the output.  Fields not present will have their values summed.  Output data tree will separate data in the order the fields are specified in groupby.  Possible fields are 'url', 'service', 'metric'.  For example, set the value to 'url,metric' if you want to separately know the number of shares, comments, clicks etc, and which URLs they apply to, but you don't care what service they were made on.</td>
+          </tr><tr>
+            <td><code>autoscale</code></td>
+            <td>Querystring</td>
+            <td>Whether to rescale the returned counts to an appropriate scale and add the unit suffix (eg '32K' instead of '32253'). If false, returned counts will be integers, otherwise they will be strings. Default false (specify boolean using integer 1 or 0)</td>
+          </tr><tr>
+            <td><code>debug</code></td>
+            <td>Querystring</td>
+            <td>Whether to output an additional top level 'debug' property containing information about how the request was processed. Default false (specify boolean using integer 1 or 0)</td>
+          </tr>
+        </table>
+
+        <p>The following example request queries for interactions on three URLs, across four services, and requests the data to be autoscaled and organised by service, then by metric:</p>
+
+        <pre><code>http://localhost:3001/v1/getCounts?groupby=service,metric&amp;autoscale=1&amp;urls=http://www.google.com,http://www.bbc.co.uk,http://www.ft.com/cms/s/0/b7d51d60-00d8-11e3-a90a-00144feab7de.html&amp;services=facebook,gplus,twitter,stumbleupon,reddit,inferno&amp;metrics=comments,shares,votes,endorsements</code></pre>
+
+        <p>Response (live):</p>
+
+        <pre><code id='example1'></code></pre>
+      </div>
+
+      <div class='o-techdocs-footer'>
+        <p><a class='o-techdocs-pull-right' href='http://github.com/triblondon/sharecount-service'>View project on Github</a>&copy; THE FINANCIAL TIMES LTD. FT and 'Financial Times' are trademarks of The Financial Times Ltd.</p>
+      </div>
+
+    </div> <!-- /page -->
+
     <script>
       window.onload = function() {
         var xhr = new XMLHttpRequest();
-        xhr.open("get", "/v1/getCounts?autoscale=1&groupby=service,metric&urls=http://www.google.com,http://www.bbc.co.uk,http://www.ft.com/cms/s/0/b7d51d60-00d8-11e3-a90a-00144feab7de.html&services=facebook,gplus,inferno&metrics=comments,shares,votes,endorsements");
+        xhr.open("get", "/v1/getCounts?autoscale=1&groupby=service,metric&urls=http://www.google.com,http://www.bbc.co.uk,http://www.ft.com/cms/s/0/b7d51d60-00d8-11e3-a90a-00144feab7de.html&services=facebook,gplus,inferno&metrics=comments,shares,votes,endorsements&source=docs");
         xhr.onload = function() {
           document.getElementById('example1').innerHTML = this.responseText;
         }
         xhr.send();
       }
     </script>
-  </head>
-  <body>
-
-    <div class="container">
-
-      <div class='row'>
-        <div class='col-lg-12'>
-
-          <div class='page-header'>
-            <h1>Share count service</h1>
-            <p class='lead'>Get interaction counts from major social networks</p>
-          </div>
-
-          <div class='main'>
-            <p>Integrating the 'button' code from all the social networks can add significant weight to your page, slow down rendering, limit your design options and cause the page to be less responsive.  Most importantly, in environments where those social networks are blocked, the buttons at the very least will be missing and at worst will break the whole page.</p>
-            <p>This service provides fast lookup and an aggregation cache layer in front of all the major social networks.</p>
-
-            <h2>API reference</h2>
-            <h3>GET /v1/getCounts</h3>
-            <p>Get share counts for a specified set of URLs, metrics and services</p>
-            <table>
-              <tr>
-                <th>Param</th><th>Where</th><th>Description</th>
-              </tr><tr>
-                <td><code>urls*</code></td>
-                <td>Querystring</td>
-                <td>List of comma-separated, URL-encoded URLs for which interaction counts should be fetched.</td>
-              </tr><tr>
-                <td><code>services*</code></td>
-                <td>Querystring</td>
-                <td>Comma-separated of services on which to query for the URLs.  Supported services are 'twitter', 'facebook', 'gplus', 'stumbleupon', 'reddit', 'delicious', 'linkedin', 'pinterest', 'inferno'</td>
-              </tr><tr>
-                <td><code>metrics*</code></td>
-                <td>Querystring</td>
-                <td>Comma-separated list of metrics to fetch from each service.  Supported metrics are 'shares', 'endorsements', 'comments', 'clicks'.  Note that not all services support all metrics - for example, twitter is only capable of giving a number for 'shares', and in the case of inferno, only 'comments', while facebook supports all the metrics.</td>
-              </tr><tr>
-                <td><code>groupby</code></td>
-                <td>Querystring</td>
-                <td>Comma separated list of fields to split out in the output.  Fields not present will have their values summed.  Output data tree will separate data in the order the fields are specified in groupby.  Possible fields are 'url', 'service', 'metric'.  For example, set the value to 'url,metric' if you want to separately know the number of shares, comments, clicks etc, and which URLs they apply to, but you don't care what service they were made on.</td>
-              </tr><tr>
-                <td><code>autoscale</code></td>
-                <td>Querystring</td>
-                <td>Whether to rescale the returned counts to an appropriate scale and add the unit suffix (eg '32K' instead of '32253'). If false, returned counts will be integers, otherwise they will be strings. Default false (specify boolean using integer 1 or 0)</td>
-              </tr><tr>
-                <td><code>debug</code></td>
-                <td>Querystring</td>
-                <td>Whether to output an additional top level 'debug' property containing information about how the request was processed. Default false (specify boolean using integer 1 or 0)</td>
-              </tr>
-            </table>
-
-            <p>The following example request queries for interactions on three URLs, across four services, and requests the data to be autoscaled and organised by service, then by metric:</p>
-
-            <pre><code>http://localhost:3001/v1/getCounts?groupby=service,metric&amp;autoscale=1&amp;urls=http://www.google.com,http://www.bbc.co.uk,http://www.ft.com/cms/s/0/b7d51d60-00d8-11e3-a90a-00144feab7de.html&amp;services=facebook,gplus,twitter,stumbleupon,reddit,inferno&amp;metrics=comments,shares,votes,endorsements</code></pre>
-
-            <p>Response (live):</p>
-
-            <pre><code id='example1'></code></pre>
-          </div>
-
-        </div>
-      </div>
-
-    </div> <!-- /container -->
-
-    <div class='footer'>
-      <div class='container'>
-        <div class='row'>
-          <div class='col-lg-12'>
-            <p class='pull-right'><a href='http://github.com/financial-times/ft-tweet-service'>View project on Github</a></p>
-            <p>&copy; THE FINANCIAL TIMES LTD 2013. FT and 'Financial Times' are trademarks of The Financial Times Ltd.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
   </body>
 </html>

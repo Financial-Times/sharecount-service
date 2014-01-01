@@ -1,0 +1,8 @@
+{
+	"description": "Fetches interaction counts for URLs on social network services",
+	"origamiType": "service",
+	"origamiVersion": 1,
+	"support": "andrew.betts@ft.com",
+	"supportStatus": "active"
+	"serviceUrl": "http://sharecount.origami.trib.tv"
+}
