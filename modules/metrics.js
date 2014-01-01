@@ -5,20 +5,6 @@ _ = require('lodash'),
 timeout = 1000;
 
 var metrics = {
-	twitterRespTime: {
-		type: "count",
-		unit: "seconds",
-		func: function(def) {
-			var req = require('request');
-			var start = (new Date()).getTime();
-
-			// This won't actually work as it's not authenticated but this metric simply wants to know the response time
-			req.get('https://api.twitter.com/1.1/statuses/show.json?id=210462857140252672', function(err, resp, body) {
-				var end = (new Date()).getTime();
-				def.resolve(err ? null : (end-start)/1000);
-			});
-		}
-	},
 	memcacheRespTime: {
 		type: "count",
 		unit: "seconds",
