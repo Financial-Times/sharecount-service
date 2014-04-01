@@ -1,7 +1,7 @@
 {
    "name": "sharecount-service",
    "version": "0.0.1",
-   "repository": "https://github.com/triblondon/sharecount-service.git",
+   "repository": "https://github.com/financial-times/sharecount-service.git",
    "dependencies": {
       "express": "3.x",
       "mustache": "0.8",
@@ -12,15 +12,10 @@
       "deferred": "*",
       "request": "*",
       "memcached": "*",
-      "lodash": "*",
-      "grunt": "~0.4.1",
-      "grunt-contrib-sass": "*",
-      "grunt-contrib-watch": "*",
-      "grunt-browserify": "*",
-      "debowerify": "*"
+      "lodash": "*"
    },
    "scripts": {
-      "prepare": "git pull; mkdir logs; chmod -R 777 logs; mkdir public; chmod -R 777 public; npm install; bower install; grunt;",
+      "prepare": "git pull; mkdir logs; chmod -R 777 logs; npm install;",
       "start": "forever start --minUptime 1000 --spinSleepTime 1000 --no-colors app.js",
       "stop": "forever stop --no-colors app.js"
    }

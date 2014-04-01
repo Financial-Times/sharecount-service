@@ -1,7 +1,8 @@
 var fs = require('fs'), data = {};
 
 exports.load = function(cb) {
-	fs.readFile('config.json', function(err, str) {
+	var basepath = __dirname+'/..';
+	fs.readFile(basepath+'/config.json', function(err, str) {
 		if (err) return cb(new Error('Cannot read config from disk. Check existence and file permissions of config.json at application root.'));
 		try {
 			data = JSON.parse(str);

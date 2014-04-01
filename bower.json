@@ -1,6 +1,0 @@
-{
-   "name": "sharecount-service",
-   "dependencies": {
-      "o-techdocs": "git://github.com/Financial-Times/o-techdocs#>=1.2.1 <2"
-   }
-}

@@ -1,4 +1,5 @@
 var deferred = require('deferred'),
+Memcached = require('memcached'),
 _ = require('lodash'),
 timeout = 1000;
 
@@ -21,6 +22,22 @@ var genericServiceCheck = {
 }
 
 var checks = [
+	{
+		name: "Memcached",
+		func: function(def) {
+			memcached = new Memcached('127.0.0.1:11211', {timeout:50});
+			memcached.set('test', '1', 10, function(err) {
+				if (err) def.reject(err);
+ 			});
+			memcached.get('test', function(err, cacheres) {
+				if (cacheres) {
+					def.resolve(true);
+				} else if (err) {
+					def.reject(err);
+				}
+			});
+		}
+	},
 	_.extend({}, genericServiceCheck, {
 		name: "Twitter",
 		func: function(def) { return genericServiceCheck.func(def, 'twitter', 'shares'); }
@@ -64,8 +81,8 @@ exports.get = function(callback) {
 	deferred.map(checks, function(check) {
 		var def = deferred();
 		var def2 = deferred();
-		check.func(def);
 		setTimeout(function() { def.reject(new Error("Timeout: check did not complete within "+timeout+"ms")) }, timeout);
+		check.func(def);
 		def.promise.done(function() {
 			def2.resolve(_.extend({}, _.pick(check, ['name', 'check']), {ok:true}))
 		}, function(err) {
