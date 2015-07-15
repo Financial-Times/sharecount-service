@@ -7,6 +7,7 @@
 var deferred = require('deferred');
 var _ = require('lodash');
 var Memcached = require('memcached');
+var config = require('../config');
 
 var mcprefix = 'ft-sharecount-service-';
 var mcttl = 3600;
@@ -46,7 +47,7 @@ module.exports = function(req, res) {
 	})
 
 	// Get as many of the results from memcache as possible
-	memcached = new Memcached('127.0.0.1:11211', {timeout:50});
+	memcached = new Memcached(config.memcached.servers, config.memcached.options);
 	memcached.getMulti(keylist, function(err, cacheres) {
 		var cachestats = {cached:0,fresh:0};
 		keylist.forEach(function(i) {

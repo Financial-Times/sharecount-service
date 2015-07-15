@@ -1,6 +1,6 @@
 
 var deferred = require('deferred'),
-config = require('./config'),
+config = require('../config'),
 _ = require('lodash'),
 timeout = 1000;
 
@@ -10,7 +10,7 @@ var metrics = {
 		unit: "seconds",
 		func: function(def) {
 			var Memcached = require('memcached');
-			var mcconfig = config.get('memcached');
+			var mcconfig = config.memcached;
 			if (!mcconfig) {
 				def.resolve(null);
 			} else {

@@ -5,7 +5,7 @@
  */
 
 var express = require('express');
-var config = require('./modules/config');
+var config = require('./config');
 
 var app = express()
 .use(express.static('public'))
@@ -55,12 +55,5 @@ app.use(function(err, req, res, next) {
 });
 
 // Load config and launch server
-config.load(function(err) {
-	if (err) {
-		console.log(err.toString());
-		process.exit(1);
-	} else {
-		app.listen(config.get('port'));
-		console.log('Listening on port '+config.get('port'));
-	}
-});
+app.listen(config.port);
+console.log('Listening on port ' + config.port);
