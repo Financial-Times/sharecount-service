@@ -6,7 +6,7 @@ exports.fetch = function(urls, metrics) {
 		var def = deferred();
 		req.get("http://www.stumbleupon.com/services/1.01/badge.getinfo?url="+encodeURIComponent(url), function(err, respobj, resp) {
 			resp = JSON.parse(resp);
-			def.resolve({url:url, metric:'shares', count:(resp.result.views ? resp.result.views : 0)});
+			def.resolve({url:url, metric:'shares', count:(resp.result && resp.result.views ? resp.result.views : 0)});
 		});
 		return def.promise;
 	});
