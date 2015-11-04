@@ -94,13 +94,14 @@ module.exports = function(req, res) {
 		function andAggregate() {
 			results.forEach(function(item) {
 				var resultslot;
+				var count = parseInt(item.count)
 				if (!groupby) {
-					data += item.count;
+					data += count;
 				} else {
 					resultslot = groupby.map(function(by) {
 						return item[by];
 					});
-					addToValue(data, item.count, resultslot);
+					addToValue(data, count, resultslot);
 				}
 			});
 			if (!groupby.length) data = data.undefined;
