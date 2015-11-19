@@ -94,7 +94,7 @@ module.exports = function(req, res) {
 		function andAggregate() {
 			results
 				.filter(function (item) {
-					return item;	// filter undefined 
+					return item;
 				})
 				.forEach(function(item) {
 				var resultslot;
