@@ -22,7 +22,7 @@ exports.fetch = function(urls, metrics) {
 			})
 			def.resolve(retdata);
 		} catch (e) {
-			def.resolve({});
+			def.resolve();
 		}
 	});
 	return def.promise;

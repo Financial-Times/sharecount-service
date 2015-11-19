@@ -15,7 +15,7 @@ exports.fetch = function(urls, metrics) {
 				resp = JSON.parse(resp);
 				def.resolve({url:url, metric:'shares', count:(resp.length ? resp[0].total_posts : 0)});
 			} catch (err) {
-				def.resolve({});
+				def.resolve();
 			}
 		});
 		return def.promise;

@@ -9,7 +9,7 @@ exports.fetch = function(urls, metrics) {
 				var data = JSON.parse(body.replace(/^[^\{]+/, '').replace(/[^\}]+$/, ''));
 				def.resolve({url:url, metric:'shares', count:(data.count ? data.count : 0)});
 			} catch (e) {
-				def.resolve({});
+				def.resolve();
 			}
 		});
 		return def.promise;

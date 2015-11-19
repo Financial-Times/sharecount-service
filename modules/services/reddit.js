@@ -9,7 +9,7 @@ exports.fetch = function(urls, metrics) {
 				var data = JSON.parse(body);
 				def.resolve({url:url, metric:'endorsements', count:(data.data.children.length ? data.data.children[0].data.score : 0)});
 			} catch (e) {
-				def.resolve({});
+				def.resolve();
 			}
 		});
 		return def.promise;

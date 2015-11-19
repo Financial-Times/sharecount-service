@@ -9,7 +9,7 @@ exports.fetch = function(urls, metrics) {
 				resp = JSON.parse(resp);
 				def.resolve({url:url, metric:'shares', count:resp.count});
 			} catch (e) {
-				def.resolve({});
+				def.resolve();
 			}
 		});
 		return def.promise;
