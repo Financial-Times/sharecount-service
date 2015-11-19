@@ -5,8 +5,12 @@ exports.fetch = function(urls, metrics) {
 	return deferred.map(urls, function(url) {
 		var def = deferred();
 		req.get("http://buttons.reddit.com/button_info.json?url="+encodeURIComponent(url), function(err, resp, body) {
-			var data = JSON.parse(body);
-			def.resolve({url:url, metric:'endorsements', count:(data.data.children.length ? data.data.children[0].data.score : 0)});
+			try {
+				var data = JSON.parse(body);
+				def.resolve({url:url, metric:'endorsements', count:(data.data.children.length ? data.data.children[0].data.score : 0)});
+			} catch (e) {
+				def.resolve({});
+			}
 		});
 		return def.promise;
 	});
