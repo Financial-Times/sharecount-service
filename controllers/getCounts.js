@@ -92,7 +92,11 @@ module.exports = function(req, res) {
 		}
 
 		function andAggregate() {
-			results.forEach(function(item) {
+			results
+				.filter(function (item) {
+					return item;
+				})
+				.forEach(function(item) {
 				var resultslot;
 				var count = parseInt(item.count)
 				if (!groupby) {
