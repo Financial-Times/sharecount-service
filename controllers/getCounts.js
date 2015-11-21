@@ -92,13 +92,15 @@ module.exports = function(req, res) {
 		}
 
 		function andAggregate() {
+			console.log(results)
 			results
 				.filter(function (item) {
-					return item;
+					return item && !isNaN(item.count);
 				})
 				.forEach(function(item) {
 				var resultslot;
 				var count = parseInt(item.count)
+				console.log(count);
 				if (!groupby) {
 					data += count;
 				} else {
@@ -111,6 +113,7 @@ module.exports = function(req, res) {
 			if (!groupby.length) data = data.undefined;
 			if (req.query.autoscale) data = autoScale(data);
 			if (req.query.debug) data.debug = {cache:cachestats};
+			console.log(data);
 			res.jsonp(data);
 		}
 	});
