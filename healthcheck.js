@@ -1,5 +1,5 @@
-export default () => {
-  return new Promise(resolve => {
-    resolve([{}]);
-  });
-}
+// export default () => {
+//   return new Promise(resolve => {
+//     resolve([{}]);
+//   });
+// }

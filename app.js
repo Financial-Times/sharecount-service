@@ -6,8 +6,8 @@
 
 var express = require('express');
 var config = require('./modules/config');
-import ftwebservice from 'ftwebservice';
-import path from 'path';
+var ftwebservice = require('express-ftwebservice');
+var path = require('path');
 
 var app = express()
 .use(express.static('public'))
@@ -21,6 +21,20 @@ app.all('*', function(req, res, next){
   res.set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type');
   if ('OPTIONS' == req.method) return res.send(200);
   next();
+});
+
+// Origami-required docs and monitoring
+// app.get('/', require('./controllers/standard/info'));
+app.get('/v:version', function(req, res, next) {
+	// Redirect to current version if no version is specified
+	if (!req.params.version) {
+		res.redirect('/v1/');
+	} else if (req.params.version == 1) {
+		res.set('Cache-control', 'max-age=3600, public');
+		res.sendfile('views/info.html');
+	} else {
+		next();
+	}
 });
 
 // Origami-required Express Web Service
