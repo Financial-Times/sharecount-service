@@ -1,0 +1,13 @@
+{
+    "schemaversion": 1,
+    "name": "sharecount-service",
+    "purpose": "Fetches interaction counts for URLs on social network services",
+    "audience": "",
+    "serviceTier": "",
+    "dateCreated": "2015-12-02",
+    "contacts": [
+    ],
+    "links": [
+        { "url":"https://github.com/Financial-Times/sharecount-service", "category":"repo" }
+    ]
+}

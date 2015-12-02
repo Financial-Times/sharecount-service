@@ -6,6 +6,8 @@
 
 var express = require('express');
 var config = require('./modules/config');
+import ftwebservice from 'ftwebservice';
+import path from 'path';
 
 var app = express()
 .use(express.static('public'))
@@ -21,15 +23,13 @@ app.all('*', function(req, res, next){
   next();
 });
 
-// Origami-required docs and monitoring
-app.get('/', require('./controllers/standard/info'));
-app.get('/v:version', require('./controllers/standard/info'));
-app.get('/__about', require('./controllers/standard/about'));
-app.get('/v:version/__about', require('./controllers/standard/about'));
-app.get('/__metrics', require('./controllers/standard/metrics'));
-app.get('/v:version/__metrics', require('./controllers/standard/metrics'));
-app.get('/__health', require('./controllers/standard/health'));
-app.get('/v:version/__health', require('./controllers/standard/health'));
+// Origami-required Express Web Service
+ftwebservice(app, {
+  manifestPath: path.join(__dirname, 'package.json'),
+  about: require('./runbook.json'),
+  healthcheck: require('./healthcheck'),
+  goodToGoTest: () => Promise.resolve(true)
+});
 
 // Origami-required source identifier (applies to all API endpoints, below, but not monitoring and docs endpoints, above)
 app.all('/v:version/*', function(req, res, next) {

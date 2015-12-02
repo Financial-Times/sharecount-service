@@ -8,6 +8,7 @@
       "twit": "*",
       "moment": "*",
       "forever": "*",
+      "ftwebservice": "*",
       "htmltidy": "*",
       "deferred": "*",
       "request": "*",
