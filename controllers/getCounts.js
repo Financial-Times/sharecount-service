@@ -105,6 +105,7 @@ module.exports = function(req, res) {
 			if (!groupby.length) data = data.undefined;
 			if (req.query.autoscale) data = autoScale(data);
 			if (req.query.debug) data.debug = {cache:cachestats};
+			res.set('Cache-Control', 'max-age=10, stale-while-revalidate=30, stale-if-error=604800');
 			res.jsonp(data);
 		}
 	});
