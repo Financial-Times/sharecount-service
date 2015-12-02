@@ -35,11 +35,11 @@
         </tr><tr>
           <td><code>services*</code></td>
           <td>Querystring</td>
-          <td>Comma-separated of services on which to query for the URLs.  Supported services are 'twitter', 'facebook', 'gplus', 'stumbleupon', 'reddit', 'delicious', 'linkedin', 'pinterest', 'inferno'</td>
+          <td>Comma-separated of services on which to query for the URLs.  Supported services are 'twitter', 'facebook', 'gplus', 'stumbleupon', 'reddit', 'delicious', 'linkedin', 'pinterest'</td>
         </tr><tr>
           <td><code>metrics*</code></td>
           <td>Querystring</td>
-          <td>Comma-separated list of metrics to fetch from each service.  Supported metrics are 'shares', 'endorsements', 'comments', 'clicks'.  Note that not all services support all metrics - for example, twitter is only capable of giving a number for 'shares', and in the case of inferno, only 'comments', while facebook supports all the metrics.</td>
+          <td>Comma-separated list of metrics to fetch from each service.  Supported metrics are 'shares', 'endorsements', 'comments', 'clicks'.  Note that not all services support all metrics - for example, twitter is only capable of giving a number for 'shares', while facebook supports all the metrics.</td>
         </tr><tr>
           <td><code>groupby</code></td>
           <td>Querystring</td>
@@ -57,7 +57,7 @@
 
       <p>The following example request queries for interactions on three URLs, across four services, and requests the data to be autoscaled and organised by service, then by metric:</p>
 
-      <pre><code>/v1/getCounts?groupby=service,metric&amp;autoscale=1&amp;urls=http://www.google.com,http://www.bbc.co.uk,http://www.ft.com/cms/s/0/b7d51d60-00d8-11e3-a90a-00144feab7de.html&amp;services=facebook,gplus,twitter,stumbleupon,reddit,inferno&amp;metrics=comments,shares,votes,endorsements</code></pre>
+      <pre><code>/v1/getCounts?groupby=service,metric&amp;autoscale=1&amp;urls=http://www.google.com,http://www.bbc.co.uk,http://www.ft.com/cms/s/0/b7d51d60-00d8-11e3-a90a-00144feab7de.html&amp;services=facebook,gplus,twitter,stumbleupon,reddit&amp;metrics=comments,shares,votes,endorsements</code></pre>
 
       <p>Response (live):</p>
 
@@ -71,7 +71,7 @@
     <script>
       window.onload = function() {
         var xhr = new XMLHttpRequest();
-        xhr.open("get", "/v1/getCounts?autoscale=1&groupby=service,metric&urls=http://www.google.com,http://www.bbc.co.uk,http://www.ft.com/cms/s/0/b7d51d60-00d8-11e3-a90a-00144feab7de.html&services=facebook,gplus,inferno&metrics=comments,shares,votes,endorsements&source=docs");
+        xhr.open("get", "/v1/getCounts?autoscale=1&groupby=service,metric&urls=http://www.google.com,http://www.bbc.co.uk,http://www.ft.com/cms/s/0/b7d51d60-00d8-11e3-a90a-00144feab7de.html&services=facebook,gplus&metrics=comments,shares,votes,endorsements&source=docs");
         xhr.onload = function() {
           document.getElementById('example1').innerHTML = this.responseText;
         }

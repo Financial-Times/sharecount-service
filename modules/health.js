@@ -59,10 +59,6 @@ var checks = [
 		func: function(def) { return genericServiceCheck.func(def, 'linkedin', 'shares'); }
 	}),
 	_.extend({}, genericServiceCheck, {
-		name: "Inferno",
-		func: function(def) { return genericServiceCheck.func(def, 'inferno', 'shares'); }
-	}),
-	_.extend({}, genericServiceCheck, {
 		name: "Google Plus",
 		func: function(def) { return genericServiceCheck.func(def, 'gplus', 'shares'); }
 	}),
