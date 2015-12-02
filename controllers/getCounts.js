@@ -30,7 +30,7 @@ module.exports = function(req, res) {
 	// Open handles to service backends
 	services.forEach(function(servicename) {
 		servicebackends[servicename] = require('../modules/services/'+servicename+'.js');
-	})
+	});
 
 	// Create a single flat list of items needed so they can be searched for in cache.  Only list combos that make sense (eg there is no 'endorse' action supported by twitter)
 	urls.forEach(function(x) {
@@ -42,8 +42,8 @@ module.exports = function(req, res) {
 					itemmap[key] = {url:x,service:y,metric:z};
 				}
 			});
-		})
-	})
+		});
+	});
 
 	// Get as many of the results from memcache as possible
 	memcached = new Memcached('127.0.0.1:11211', {timeout:50});
@@ -80,7 +80,7 @@ module.exports = function(req, res) {
 							memcached.set(mcprefix+md5([i.url,i.service,i.metric]), i, mcttl, function() {});
 							cachestats.fresh++;
 							return i;
-						})
+						});
 						results = results.concat(result);
 					}
 					return result;
