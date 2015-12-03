@@ -1,10 +1,12 @@
 'use strict';
 const chai = require('chai');
-chai.should();
 const request = require('supertest');
+const sinon = require('sinon');
+
+chai.should();
 
 const app = require('../app');
-const healthcheck = require('../healthcheck')
+const healthcheck = require('../healthcheck');
 
 describe('App', function(){
 	before(done => {
@@ -19,20 +21,24 @@ describe('App', function(){
 });
 
 describe('Healthcheck', function(){
-	var foo;
+  it('should error when appropriate', function(done){
+    const facebook = require('../modules/services/facebook');
 
-	beforeEach(function(done){
-		var promise = healthcheck();
-		promise.then(function(value){
-			foo = value;
-			done();
-		}).catch(err => {
-			foo = err;
-			done();
-		});
-	});
+    const successStub = {
+      "fetch": function () {
+        return {
+          "then": function (callback) {
+            return callback([{"url": "www.ft.com"}]);
+          }
+        };
+      }
+    };
 
-	it('should error when appropriate', function(){
-		// test to be added
-	});
+    const checks = [successStub];
+
+    healthcheck(checks).then((data) => {
+      console.log(data);
+      done();
+    });
+  });
 });
