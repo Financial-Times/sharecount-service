@@ -83,3 +83,5 @@ config.load(function(err) {
 		console.log('Listening on port '+config.get('port'));
 	}
 });
+
+module.exports = app;

@@ -15,9 +15,15 @@
       "memcached": "*",
       "lodash": "*"
    },
+   "devDependencies": {
+      "chai": "^2.1.0",
+      "mocha": "^2.3.4",
+      "supertest": "^1.1.0"
+   },
    "scripts": {
       "prepare": "git pull; mkdir logs; chmod -R 777 logs; npm install;",
       "start": "forever start --minUptime 1000 --spinSleepTime 1000 --no-colors app.js",
-      "stop": "forever stop --no-colors app.js"
+      "stop": "forever stop --no-colors app.js",
+      "test": "mocha"
    }
 }
