@@ -1,7 +1,6 @@
 'use strict';
 const chai = require('chai');
 const request = require('supertest');
-const sinon = require('sinon');
 
 chai.should();
 
