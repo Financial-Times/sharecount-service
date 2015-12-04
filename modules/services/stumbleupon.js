@@ -5,8 +5,12 @@ exports.fetch = function(urls, metrics) {
 	return deferred.map(urls, function(url) {
 		var def = deferred();
 		req.get("http://www.stumbleupon.com/services/1.01/badge.getinfo?url="+encodeURIComponent(url), function(err, respobj, resp) {
-			resp = JSON.parse(resp);
-			def.resolve({url:url, metric:'shares', count:(resp.result.views ? resp.result.views : 0)});
+			try {
+				resp = JSON.parse(resp);
+				def.resolve({url:url, metric:'shares', count:(resp.result && resp.result.views ? resp.result.views : 0)});
+			} catch (e) {
+				def.resolve();
+			}
 		});
 		return def.promise;
 	});

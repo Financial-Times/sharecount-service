@@ -7,6 +7,7 @@
 var deferred = require('deferred');
 var _ = require('lodash');
 var Memcached = require('memcached');
+var config = require('../config');
 
 var mcprefix = 'ft-sharecount-service-';
 var mcttl = 3600;
@@ -46,7 +47,7 @@ module.exports = function(req, res) {
 	})
 
 	// Get as many of the results from memcache as possible
-	memcached = new Memcached('127.0.0.1:11211', {timeout:50});
+	memcached = new Memcached(config.memcached.servers, config.memcached.options);
 	memcached.getMulti(keylist, function(err, cacheres) {
 		var cachestats = {cached:0,fresh:0};
 		keylist.forEach(function(i) {
@@ -91,20 +92,28 @@ module.exports = function(req, res) {
 		}
 
 		function andAggregate() {
-			results.forEach(function(item) {
+			console.log(results)
+			results
+				.filter(function (item) {
+					return item && !isNaN(item.count);
+				})
+				.forEach(function(item) {
 				var resultslot;
+				var count = parseInt(item.count)
+				console.log(count);
 				if (!groupby) {
-					data += item.count;
+					data += count;
 				} else {
 					resultslot = groupby.map(function(by) {
 						return item[by];
 					});
-					addToValue(data, item.count, resultslot);
+					addToValue(data, count, resultslot);
 				}
 			});
 			if (!groupby.length) data = data.undefined;
 			if (req.query.autoscale) data = autoScale(data);
 			if (req.query.debug) data.debug = {cache:cachestats};
+			console.log(data);
 			res.jsonp(data);
 		}
 	});

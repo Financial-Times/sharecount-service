@@ -1,3 +1,5 @@
+
+var config = require('../config');
 var deferred = require('deferred'),
 Memcached = require('memcached'),
 _ = require('lodash'),
@@ -25,7 +27,7 @@ var checks = [
 	{
 		name: "Memcached",
 		func: function(def) {
-			memcached = new Memcached('127.0.0.1:11211', {timeout:50});
+			memcached = new Memcached(config.memcached.servers, config.memcached.options);
 			memcached.set('test', '1', 10, function(err) {
 				if (err) def.reject(err);
  			});
@@ -57,10 +59,6 @@ var checks = [
 	_.extend({}, genericServiceCheck, {
 		name: "LinkedIn",
 		func: function(def) { return genericServiceCheck.func(def, 'linkedin', 'shares'); }
-	}),
-	_.extend({}, genericServiceCheck, {
-		name: "Inferno",
-		func: function(def) { return genericServiceCheck.func(def, 'inferno', 'shares'); }
 	}),
 	_.extend({}, genericServiceCheck, {
 		name: "Google Plus",
