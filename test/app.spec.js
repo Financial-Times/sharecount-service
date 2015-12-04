@@ -37,7 +37,7 @@ describe('Healthcheck', () => {
       };
 
       healthcheck([facebook]).then((data) => {
-        data[0].error.should.equal('wah');
+        data[0][0].error.should.equal('wah');
         done();
       });
     });
@@ -58,7 +58,7 @@ describe('Healthcheck', () => {
       };
 
       healthcheck([facebook]).then((data) => {
-        data[0].url.should.equal('www.ft.com');
+        data[0][0].url.should.equal('www.ft.com');
         done();
       });
     });
