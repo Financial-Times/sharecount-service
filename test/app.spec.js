@@ -8,37 +8,59 @@ chai.should();
 const app = require('../app');
 const healthcheck = require('../healthcheck');
 
-describe('App', function(){
-	before(done => {
-		app.listen(9999, done);
-	});
+describe('App', () => {
+  before(done => {
+    app.listen(9999, done);
+  });
 
-	it('has a /__gtg endpoint which returns 200', function(done) {
-		request(app)
-			.get('/__gtg')
-			.expect(200, done);
-	});
+  it('has a /__gtg endpoint which returns 200', (done) => {
+    request(app)
+      .get('/__gtg')
+      .expect(200, done);
+  });
 });
 
-describe('Healthcheck', function(){
-  it('should error when appropriate', function(done){
-    const facebook = require('../modules/services/facebook');
+describe('Healthcheck', () => {
 
-    const successStub = {
-      "fetch": function () {
-        return {
-          "then": function (callback) {
-            return callback([{"url": "www.ft.com"}]);
-          }
-        };
-      }
-    };
+  describe('when a request fails', () => {
 
-    const checks = [successStub];
+    it('should return the error', (done) => {
 
-    healthcheck(checks).then((data) => {
-      console.log(data);
-      done();
+      const facebook = {
+        "fetch": () => {
+          return {
+            "then": (callback) => {
+              return callback([{"error": 'wah'}]);
+            }
+          };
+        }
+      };
+
+      healthcheck([facebook]).then((data) => {
+        data[0].error.should.equal('wah');
+        done();
+      });
+    });
+  });
+
+  describe('when a request is successful', () => {
+
+    it('should work when appropriate', (done) => {
+
+      const facebook = {
+        "fetch": () => {
+          return {
+            "then": (callback) => {
+              return callback([{"url": "www.ft.com"}]);
+            }
+          };
+        }
+      };
+
+      healthcheck([facebook]).then((data) => {
+        data[0].url.should.equal('www.ft.com');
+        done();
+      });
     });
   });
 });
